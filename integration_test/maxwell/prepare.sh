@@ -14,12 +14,11 @@ $DOCKER_RUN --name Kafka -p 9092:9092 \
             -e ZOOKEEPER_CONNECT=Zookeeper:2181 \
             --link Zookeeper:Zookeeper -d debezium/kafka:0.5
 
-docker logs MySQL
-until $(docker logs MySQL | grep -q "Server hostname (bind-address)")
+until $(docker logs MySQL | grep -q "ready for connections")
 do
     sleep 1
 done
-
+docker logs MySQL
 $MYSQL_EXEC -e "GRANT ALL on maxwell.* to 'maxwell'@'%' identified by '123456';"
 $MYSQL_EXEC -e "GRANT SELECT, REPLICATION CLIENT, REPLICATION SLAVE on *.* to 'maxwell'@'%';"
 
