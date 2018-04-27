@@ -14,6 +14,7 @@ $DOCKER_RUN --name Kafka -p 9092:9092 \
             -e ZOOKEEPER_CONNECT=Zookeeper:2181 \
             --link Zookeeper:Zookeeper -d debezium/kafka:0.5
 
+docker log MySQL
 until $(docker logs MySQL | grep -q "Server hostname (bind-address)")
 do
     sleep 1
