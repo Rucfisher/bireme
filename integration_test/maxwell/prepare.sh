@@ -18,7 +18,7 @@ until $(docker logs MySQL | grep -q "Server hostname (bind-address)")
 do
     sleep 1
 done
-
+docker logs MySQL
 $MYSQL_EXEC -e "GRANT ALL on maxwell.* to 'maxwell'@'%' identified by '123456';"
 $MYSQL_EXEC -e "GRANT SELECT, REPLICATION CLIENT, REPLICATION SLAVE on *.* to 'maxwell'@'%';"
 
